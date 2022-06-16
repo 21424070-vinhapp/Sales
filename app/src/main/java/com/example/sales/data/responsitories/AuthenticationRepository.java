@@ -15,10 +15,15 @@ public class AuthenticationRepository {
 
     public AuthenticationRepository(Context context)
     {
-        apiService= RetrofitClient.getRetrofitClient().getApiService();
+        apiService= RetrofitClient.getRetrofitClient(context).getApiService();
     }
 
     public Call<AppResource<UserRespone>> signIn(UserRequest userRequest){
         return apiService.SignIn(userRequest);
+    }
+
+    public Call<AppResource<UserRespone>> signUp(UserRequest userRequest)
+    {
+        return apiService.SignUp(userRequest);
     }
 }
