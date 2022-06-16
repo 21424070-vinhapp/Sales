@@ -1,4 +1,4 @@
-package com.example.sales.presentations.main;
+package com.example.sales.presentations.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
