@@ -1,4 +1,4 @@
-package com.example.sales.presentations.splash;
+package com.example.sales.presentations.views.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,10 +6,9 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.sales.R;
 import com.example.sales.databinding.ActivitySplashBinding;
-import com.example.sales.presentations.authentications.sign_in.SignInActivity;
-import com.example.sales.presentations.home.MainActivity;
+import com.example.sales.presentations.views.authentications.sign_in.SignInActivity;
+import com.example.sales.presentations.views.home.MainActivity;
 import com.example.sales.ultils.SharePref;
 
 public class SplashActivity extends AppCompatActivity {

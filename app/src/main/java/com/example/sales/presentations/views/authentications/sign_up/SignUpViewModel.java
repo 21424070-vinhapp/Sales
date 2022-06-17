@@ -1,4 +1,4 @@
-package com.example.sales.presentations.authentications.sign_up;
+package com.example.sales.presentations.views.authentications.sign_up;
 
 import android.content.Context;
 
@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.sales.data.datasource.remote.AppResource;
-import com.example.sales.data.datasource.remote.Request.UserRequest;
-import com.example.sales.data.datasource.remote.Respone.UserRespone;
+import com.example.sales.data.datasource.data_remote.AppResource;
+import com.example.sales.data.datasource.data_remote.dataRequest.UserRequest;
+import com.example.sales.data.datasource.data_remote.dataResponse.user.UserRespone;
 import com.example.sales.data.responsitories.AuthenticationRepository;
 
 import org.json.JSONException;

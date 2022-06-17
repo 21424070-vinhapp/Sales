@@ -25,6 +25,14 @@ public class SharePref {
         editor.commit();
     }
 
+    public void removeToken(String token)
+    {
+        editor=sharedPreferences.edit();
+        editor.remove(token);
+        editor.clear();
+        editor.commit();
+    }
+
     public String getToken() {
         return sharedPreferences.getString(AppConstant.KEY_TOKEN, "");
     }

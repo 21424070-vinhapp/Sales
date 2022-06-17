@@ -1,4 +1,4 @@
-package com.example.sales.presentations.authentications.sign_in;
+package com.example.sales.presentations.views.authentications.sign_in;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,11 +17,11 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sales.R;
-import com.example.sales.data.datasource.remote.AppResource;
-import com.example.sales.data.datasource.remote.Respone.UserRespone;
+import com.example.sales.data.datasource.data_remote.AppResource;
+import com.example.sales.data.datasource.data_remote.dataResponse.user.UserRespone;
 import com.example.sales.databinding.ActivitySignInBinding;
-import com.example.sales.presentations.authentications.sign_up.SignUpActivity;
-import com.example.sales.presentations.home.MainActivity;
+import com.example.sales.presentations.views.authentications.sign_up.SignUpActivity;
+import com.example.sales.presentations.views.home.MainActivity;
 import com.example.sales.ultils.AppConstant;
 import com.example.sales.ultils.SharePref;
 
@@ -112,7 +112,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onChanged(AppResource<UserRespone> userResponeAppResource) {
                 switch (userResponeAppResource.status) {
                     case LOADING:
-                        Log.d(AppConstant.TAG, "onChanged: LOADING");
+                        //Log.d(AppConstant.TAG, "onChanged: LOADING");
                         isShowLoading(true);
                         break;
                     case SUCCESS:

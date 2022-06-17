@@ -2,11 +2,11 @@ package com.example.sales.data.responsitories;
 
 import android.content.Context;
 
-import com.example.sales.data.datasource.remote.ApiService;
-import com.example.sales.data.datasource.remote.AppResource;
-import com.example.sales.data.datasource.remote.Request.UserRequest;
-import com.example.sales.data.datasource.remote.Respone.UserRespone;
-import com.example.sales.data.datasource.remote.RetrofitClient;
+import com.example.sales.data.datasource.data_remote.ApiService;
+import com.example.sales.data.datasource.data_remote.AppResource;
+import com.example.sales.data.datasource.data_remote.dataRequest.UserRequest;
+import com.example.sales.data.datasource.data_remote.dataResponse.user.UserRespone;
+import com.example.sales.data.datasource.data_remote.RetrofitClient;
 
 import retrofit2.Call;
 

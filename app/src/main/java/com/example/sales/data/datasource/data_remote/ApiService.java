@@ -1,8 +1,8 @@
-package com.example.sales.data.datasource.remote;
+package com.example.sales.data.datasource.data_remote;
 
-import com.example.sales.data.datasource.remote.Request.UserRequest;
-import com.example.sales.data.datasource.remote.Respone.ProductResponse;
-import com.example.sales.data.datasource.remote.Respone.UserRespone;
+import com.example.sales.data.datasource.data_remote.dataRequest.UserRequest;
+import com.example.sales.data.datasource.data_remote.dataResponse.product.ProductResponse;
+import com.example.sales.data.datasource.data_remote.dataResponse.user.UserRespone;
 
 import java.util.List;
 

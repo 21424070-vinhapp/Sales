@@ -1,4 +1,4 @@
-package com.example.sales.presentations.authentications.sign_up;
+package com.example.sales.presentations.views.authentications.sign_up;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.sales.R;
-import com.example.sales.data.datasource.remote.AppResource;
-import com.example.sales.data.datasource.remote.Respone.UserRespone;
+import com.example.sales.data.datasource.data_remote.AppResource;
+import com.example.sales.data.datasource.data_remote.dataResponse.user.UserRespone;
 import com.example.sales.databinding.ActivitySignUpBinding;
 import com.example.sales.ultils.AppConstant;
 

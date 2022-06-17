@@ -1,4 +1,4 @@
-package com.example.sales.data.datasource.remote;
+package com.example.sales.data.datasource.data_remote;
 
 public class AppResource<T>{
     public T data;

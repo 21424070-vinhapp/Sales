@@ -1,4 +1,4 @@
-package com.example.sales.data.datasource.remote.Respone;
+package com.example.sales.data.datasource.data_remote.dataResponse.product;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -77,5 +77,16 @@ public class ProductResponse {
         this.gallery = gallery;
     }
 
-
+    @Override
+    public String toString() {
+        return "ProductResponse{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", price=" + price +
+                ", img='" + img + '\'' +
+                ", quantity=" + quantity +
+                ", gallery=" + gallery +
+                '}';
+    }
 }

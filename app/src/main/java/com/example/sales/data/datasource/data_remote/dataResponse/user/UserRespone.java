@@ -1,4 +1,4 @@
-package com.example.sales.data.datasource.remote.Respone;
+package com.example.sales.data.datasource.data_remote.dataResponse.user;
 
 import com.google.gson.annotations.SerializedName;
 

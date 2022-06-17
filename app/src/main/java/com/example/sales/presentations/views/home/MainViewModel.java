@@ -1,4 +1,4 @@
-package com.example.sales.presentations.home;
+package com.example.sales.presentations.views.home;
 
 import android.content.Context;
 
@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.sales.data.datasource.remote.AppResource;
-import com.example.sales.data.datasource.remote.Respone.ProductResponse;
+import com.example.sales.data.datasource.data_remote.AppResource;
+import com.example.sales.data.datasource.data_remote.dataResponse.product.ProductResponse;
 import com.example.sales.data.responsitories.ProductRespository;
 
 import org.json.JSONException;
