@@ -20,12 +20,6 @@ public class ProductResponse {
     private int quantity;
     @SerializedName("gallery")
     private List<String> gallery;
-    @SerializedName("date_created")
-    private String dateCreated;
-    @SerializedName("date_updated")
-    private Object dateUpdated;
-    @SerializedName("__v")
-    private int v;
 
     public String getId() {
         return id;
@@ -83,27 +77,5 @@ public class ProductResponse {
         this.gallery = gallery;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Object getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(Object dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public int getV() {
-        return v;
-    }
-
-    public void setV(int v) {
-        this.v = v;
-    }
 }
