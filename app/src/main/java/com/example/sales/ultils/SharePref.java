@@ -21,7 +21,7 @@ public class SharePref {
 
     public void setToken(String token) {
         editor = sharedPreferences.edit();
-        editor.putString(AppConstant.KEY_TOKEN, "");
+        editor.putString(AppConstant.KEY_TOKEN, token);
         editor.commit();
     }
 

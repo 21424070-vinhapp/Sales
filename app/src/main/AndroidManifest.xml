@@ -15,24 +15,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sales"
         tools:targetApi="31">
+
         <activity
-            android:name=".SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentations.authentications.sign_up.SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentations.authentications.sign_in.SignInActivity"
+            android:name=".presentations.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".presentations.authentications.sign_up.SignUpActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presentations.authentications.sign_in.SignInActivity"
+            android:exported="false" />
+
         <activity
             android:name=".presentations.home.MainActivity"
-            android:exported="true" />
+            android:exported="false" />
+
     </application>
 
 </manifest>

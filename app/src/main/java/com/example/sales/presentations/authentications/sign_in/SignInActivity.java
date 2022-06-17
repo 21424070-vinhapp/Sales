@@ -21,6 +21,7 @@ import com.example.sales.data.datasource.remote.AppResource;
 import com.example.sales.data.datasource.remote.Respone.UserRespone;
 import com.example.sales.databinding.ActivitySignInBinding;
 import com.example.sales.presentations.authentications.sign_up.SignUpActivity;
+import com.example.sales.presentations.home.MainActivity;
 import com.example.sales.ultils.AppConstant;
 import com.example.sales.ultils.SharePref;
 
@@ -117,6 +118,7 @@ public class SignInActivity extends AppCompatActivity {
                     case SUCCESS:
                         Toast.makeText(SignInActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         SharePref.getInstance(SignInActivity.this).setToken(userResponeAppResource.data.getToken());
+                        startActivity(new Intent(SignInActivity.this, MainActivity.class));
                         isShowLoading(false);
                         break;
                     case ERROR:
