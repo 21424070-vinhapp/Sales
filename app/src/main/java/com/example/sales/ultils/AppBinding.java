@@ -33,4 +33,9 @@ public class AppBinding {
         NumberFormat formatter = new DecimalFormat("#,###");
         return formatter.format(price) + " VNĐ";
     }
+
+    @BindingAdapter("quantity")
+    public static void setQuantity(TextView textView, int quantity) {
+        textView.setText(quantity+"");
+    }
 }

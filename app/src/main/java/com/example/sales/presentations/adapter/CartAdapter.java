@@ -91,7 +91,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         void bind(ProductResponse productResponse)
         {
             mBinding.setProduct(productResponse);
-            mBinding.textviewQuantity.setText(productResponse.getQuantity()+"");
         }
 
 

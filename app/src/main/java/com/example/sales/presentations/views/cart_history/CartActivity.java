@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.example.sales.data.datasource.data_remote.AppResource;
@@ -32,7 +33,6 @@ public class CartActivity extends AppCompatActivity {
     OrderProductRespone mOrder;
     String token;
     CartViewModel mCartViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,9 +78,6 @@ public class CartActivity extends AppCompatActivity {
                         isShowLoading(true);
                         break;
                     case SUCCESS:
-                        //mCartViewModel.fetchCart(orderProductResponeAppResource.data.getId());
-                        isShowLoading(false);
-                        break;
                     case ERROR:
                         isShowLoading(false);
                         break;
@@ -97,6 +94,8 @@ public class CartActivity extends AppCompatActivity {
                         isShowLoading(true);
                         break;
                     case SUCCESS:
+                        isShowLoading(false);
+                        break;
                     case ERROR:
                         //mCartViewModel.fetchCart(orderProductResponeAppResource.data.getId());
                         isShowLoading(false);
