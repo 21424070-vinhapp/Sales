@@ -5,7 +5,10 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/drawable/background_badge.xml" value="0.106" />
         <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/drawable/ic_cart.xml" value="0.106" />
+        <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/drawable/ic_delete.xml" value="0.106" />
+        <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/layout/activity_cart.xml" value="0.18072916666666666" />
         <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
+        <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/layout/item_cart.xml" value="0.1796875" />
         <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/layout/item_product.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/layout/layout_action_badge_item.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidStudioProjects/Sales/app/src/main/res/layout/layout_loading.xml" value="0.25416666666666665" />

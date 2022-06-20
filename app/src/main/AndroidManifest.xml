@@ -15,28 +15,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sales"
         tools:targetApi="31">
-
+        <activity
+            android:name=".presentations.views.cart_history.CartActivity"
+            android:exported="false" />
         <activity
             android:name=".presentations.views.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentations.views.authentications.sign_up.SignUpActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentations.views.authentications.sign_in.SignInActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentations.views.home.MainActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

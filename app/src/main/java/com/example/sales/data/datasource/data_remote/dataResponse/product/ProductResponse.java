@@ -2,9 +2,10 @@ package com.example.sales.data.datasource.data_remote.dataResponse.product;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProductResponse {
+public class ProductResponse implements Serializable {
 
     @SerializedName("_id")
     private String id;

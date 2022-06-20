@@ -1,6 +1,7 @@
 package com.example.sales.presentations.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     List<ProductResponse> lstProduct;
 
+    private OnItemClickProduct onItemClickProduct;
+
     public ProductAdapter(){
         lstProduct = new ArrayList<>();
     }
@@ -26,6 +29,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         lstProduct.addAll(data);
         notifyDataSetChanged();
     }
+
+    public List<ProductResponse> getListFoods(){
+        return lstProduct;
+    }
+
 
     @NonNull
     @Override
@@ -51,10 +59,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public ProductViewHolder(@NonNull ItemProductBinding mBinding) {
             super(mBinding.getRoot());
             this.mBinding = mBinding;
+
+            mBinding.buttonAddCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onItemClickProduct != null) {
+                        onItemClickProduct.onClick(getAdapterPosition());
+                    }
+                }
+            });
         }
 
         public void bind(ProductResponse product){
             mBinding.setProduct(product);
         }
     }
+
+    public void setOnItemClickProduct(OnItemClickProduct OnItemClickProduct){
+        this.onItemClickProduct = OnItemClickProduct;
+    }
+
+    public interface OnItemClickProduct {
+        void onClick(int position);
+    }
+
 }

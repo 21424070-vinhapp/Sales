@@ -28,4 +28,9 @@ public class AppBinding {
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(imageView);
     }
+
+    public static String setPrice(int price) {
+        NumberFormat formatter = new DecimalFormat("#,###");
+        return formatter.format(price) + " VNĐ";
+    }
 }

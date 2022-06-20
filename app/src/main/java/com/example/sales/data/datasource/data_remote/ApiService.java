@@ -1,9 +1,15 @@
 package com.example.sales.data.datasource.data_remote;
 
+import com.example.sales.data.datasource.data_remote.dataRequest.IdOrderRequest;
+import com.example.sales.data.datasource.data_remote.dataRequest.OrderRequest;
+import com.example.sales.data.datasource.data_remote.dataRequest.UpdateCartRequest;
 import com.example.sales.data.datasource.data_remote.dataRequest.UserRequest;
+import com.example.sales.data.datasource.data_remote.dataResponse.product.OrderProductRespone;
 import com.example.sales.data.datasource.data_remote.dataResponse.product.ProductResponse;
 import com.example.sales.data.datasource.data_remote.dataResponse.user.UserRespone;
+import com.example.sales.data.responsitories.OrderProductRespository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,5 +26,14 @@ public interface ApiService {
 
     @GET("product")
     Call<AppResource<List<ProductResponse>>> FetchProduct();
+
+    @POST("order/add-to-cart")
+    Call<AppResource<OrderProductRespone>> addToCart(@Body OrderRequest orderRequest);
+
+    @POST("order")
+    Call<AppResource<OrderProductRespone>> fetchCart(@Body IdOrderRequest idOrderRequest);
+
+    @POST("order/update")
+    Call<AppResource<String>> updateCart(@Body UpdateCartRequest updateCartRequest);
 
 }
