@@ -34,6 +34,6 @@ public interface ApiService {
     Call<AppResource<OrderProductRespone>> fetchCart(@Body IdOrderRequest idOrderRequest);
 
     @POST("order/update")
-    Call<AppResource<String>> updateCart(@Body UpdateCartRequest updateCartRequest);
+    Call<AppResource<OrderProductRespone>> updateCart(@Body UpdateCartRequest updateCartRequest);
 
 }

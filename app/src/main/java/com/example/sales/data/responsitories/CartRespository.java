@@ -23,7 +23,7 @@ public class CartRespository {
         return apiService.fetchCart(idOrderRequest);
     }
 
-    public Call<AppResource<String>> updateCart(UpdateCartRequest updateCartRequest)
+    public Call<AppResource<OrderProductRespone>> updateCart(UpdateCartRequest updateCartRequest)
     {
         return apiService.updateCart(updateCartRequest);
     }

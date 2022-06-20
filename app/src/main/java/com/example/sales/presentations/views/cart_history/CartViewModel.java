@@ -24,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CartViewModel extends ViewModel {
-    private MutableLiveData<AppResource<String>> dataUpdate = new MutableLiveData<>();
+    private MutableLiveData<AppResource<OrderProductRespone>> dataUpdate = new MutableLiveData<>();
     private MutableLiveData<AppResource<OrderProductRespone>> cart = new MutableLiveData<>();
     private CartRespository cartRespository;
 
@@ -36,7 +36,7 @@ public class CartViewModel extends ViewModel {
         return cart;
     }
 
-    public LiveData<AppResource<String>> getDataUpdate() {
+    public LiveData<AppResource<OrderProductRespone>> getDataUpdate() {
         return dataUpdate;
     }
 
@@ -70,11 +70,13 @@ public class CartViewModel extends ViewModel {
     }
 
     public void updateCart(String idProduct, String idOrder, int Quantity) {
-        cartRespository.updateCart(new UpdateCartRequest(idProduct, idOrder, Quantity)).enqueue(new Callback<AppResource<String>>() {
+        dataUpdate.setValue(new AppResource.Loading<>(null));
+        cartRespository.updateCart(new UpdateCartRequest(idProduct, idOrder, Quantity))
+                .enqueue(new Callback<AppResource<OrderProductRespone>>() {
             @Override
-            public void onResponse(Call<AppResource<String>> call, Response<AppResource<String>> response) {
+            public void onResponse(Call<AppResource<OrderProductRespone>> call, Response<AppResource<OrderProductRespone>> response) {
                 if (response.isSuccessful()) {
-                    AppResource<String> data = response.body();
+                    AppResource<OrderProductRespone> data = response.body();
                     if (data != null) {
                         dataUpdate.setValue(new AppResource.Success<>(data.data));
                     }
@@ -90,7 +92,7 @@ public class CartViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<AppResource<String>> call, Throwable t) {
+            public void onFailure(Call<AppResource<OrderProductRespone>> call, Throwable t) {
                 dataUpdate.setValue(new AppResource.Error<>(t.getMessage()));
             }
         });

@@ -63,6 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     if(setOnclickCartItem!=null)
                     {
                         setOnclickCartItem.onPlus(getAdapterPosition());
+                        bind(lstProduct.get(getAdapterPosition()));
                     }
                 }
             });
@@ -73,6 +74,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     if(setOnclickCartItem!=null)
                     {
                         setOnclickCartItem.onMinus(getAdapterPosition());
+                        bind(lstProduct.get(getAdapterPosition()));
                     }
                 }
             });
@@ -83,6 +85,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     if(setOnclickCartItem!=null)
                     {
                         setOnclickCartItem.onDelete(getAdapterPosition());
+
                     }
                 }
             });

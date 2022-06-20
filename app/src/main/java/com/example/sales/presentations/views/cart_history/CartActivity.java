@@ -2,7 +2,7 @@ package com.example.sales.presentations.views.cart_history;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -10,10 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-
-import com.example.sales.data.datasource.data_remote.AppResource;
 import com.example.sales.data.datasource.data_remote.dataResponse.product.OrderProductRespone;
 import com.example.sales.data.datasource.data_remote.dataResponse.product.ProductResponse;
 import com.example.sales.databinding.ActivityCartBinding;
@@ -24,6 +21,7 @@ import com.example.sales.ultils.SharePref;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CartActivity extends AppCompatActivity {
     Intent intent;
@@ -52,13 +50,15 @@ public class CartActivity extends AppCompatActivity {
         mCartAdapter.setOnListenerCartItem(new CartAdapter.setOnclickCartItem() {
             @Override
             public void onPlus(int postion) {
-                mCartViewModel.updateCart(mOrder.getId(), listProductResponses.get(postion).getId(), listProductResponses.get(postion).getQuantity() + 1);
+                int countQuanlity=listProductResponses.get(postion).getQuantity()+1;
+                mCartViewModel.updateCart(listProductResponses.get(postion).getId(),mOrder.getId(), countQuanlity);
             }
 
             @Override
             public void onMinus(int postion) {
                 if (listProductResponses.get(postion).getQuantity() > 1) {
-                    mCartViewModel.updateCart(mOrder.getId(), listProductResponses.get(postion).getId(), listProductResponses.get(postion).getQuantity() - 1);
+                    int countQuanlity=listProductResponses.get(postion).getQuantity()-1;
+                    mCartViewModel.updateCart(listProductResponses.get(postion).getId(),mOrder.getId(), countQuanlity);
                 }
             }
 
@@ -70,38 +70,36 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void observerData() {
-        mCartViewModel.getCart().observe(this, new Observer<AppResource<OrderProductRespone>>() {
-            @Override
-            public void onChanged(AppResource<OrderProductRespone> orderProductResponeAppResource) {
-                switch (orderProductResponeAppResource.status) {
-                    case LOADING:
-                        isShowLoading(true);
-                        break;
-                    case SUCCESS:
-                    case ERROR:
-                        isShowLoading(false);
-                        break;
-
-                }
+        mCartViewModel.getCart().observe(this, orderProductResponeAppResource -> {
+            switch (orderProductResponeAppResource.status) {
+                case LOADING:
+                    isShowLoading(true);
+                    break;
+                case SUCCESS:
+                    isShowLoading(false);
+                    break;
+                case ERROR:
+                    isShowLoading(false);
+                    break;
             }
         });
 
-        mCartViewModel.getDataUpdate().observe(this, new Observer<AppResource<String>>() {
-            @Override
-            public void onChanged(AppResource<String> stringAppResource) {
-                switch (stringAppResource.status) {
-                    case LOADING:
-                        isShowLoading(true);
-                        break;
-                    case SUCCESS:
-                        isShowLoading(false);
-                        break;
-                    case ERROR:
-                        //mCartViewModel.fetchCart(orderProductResponeAppResource.data.getId());
-                        isShowLoading(false);
-                        break;
-
-                }
+        mCartViewModel.getDataUpdate().observe(this, orderProductResponeAppResource -> {
+            switch (orderProductResponeAppResource.status) {
+                case LOADING:
+                    isShowLoading(true);
+                    break;
+                case SUCCESS:
+                    Log.d(AppConstant.TAG, "onChanged: "+ orderProductResponeAppResource.data.getPrice());
+                    mOrder=orderProductResponeAppResource.data;
+                    listProductResponses=orderProductResponeAppResource.data.getProducts();
+                    mCartAdapter.updateCart(listProductResponses);
+                    mBinding.textviewTotalAmount.setText("Tổng tiền: " + AppBinding.setPrice(mOrder.getPrice()) + " VNĐ");
+                    isShowLoading(false);
+                    break;
+                case ERROR:
+                    isShowLoading(false);
+                    break;
             }
         });
     }
@@ -131,7 +129,7 @@ public class CartActivity extends AppCompatActivity {
     private void initView() {
         //set Toolbar
         setSupportActionBar(mBinding.toolbarCart);
-        getSupportActionBar().setTitle("Cart");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Cart");
         //set adapter
         mCartAdapter = new CartAdapter();
         mCartAdapter.updateCart(listProductResponses);
