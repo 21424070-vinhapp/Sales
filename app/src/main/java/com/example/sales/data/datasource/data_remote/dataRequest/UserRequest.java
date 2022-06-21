@@ -2,7 +2,7 @@ package com.example.sales.data.datasource.data_remote.dataRequest;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserRequest {
+public class UserRequest implements Cloneable{
     @SerializedName("email")
     private String email;
     @SerializedName("name")
@@ -65,5 +65,9 @@ public class UserRequest {
         this.password = password;
         this.phone = phone;
         this.address = address;
+    }
+
+    public UserRequest coppy() throws CloneNotSupportedException {
+        return (UserRequest) this.clone();
     }
 }
