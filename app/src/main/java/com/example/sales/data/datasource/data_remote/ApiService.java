@@ -1,5 +1,6 @@
 package com.example.sales.data.datasource.data_remote;
 
+import com.example.sales.data.datasource.data_remote.dataRequest.ConfirmRequest;
 import com.example.sales.data.datasource.data_remote.dataRequest.IdOrderRequest;
 import com.example.sales.data.datasource.data_remote.dataRequest.OrderRequest;
 import com.example.sales.data.datasource.data_remote.dataRequest.UpdateCartRequest;
@@ -35,5 +36,8 @@ public interface ApiService {
 
     @POST("order/update")
     Call<AppResource<OrderProductRespone>> updateCart(@Body UpdateCartRequest updateCartRequest);
+
+    @POST("order/confirm")
+    Call<AppResource<String>> confirm(@Body ConfirmRequest confirmRequest);
 
 }

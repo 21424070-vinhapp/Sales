@@ -3,6 +3,7 @@ package com.example.sales.presentations.views.cart_history;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -10,11 +11,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.sales.data.datasource.data_remote.AppResource;
 import com.example.sales.data.datasource.data_remote.dataResponse.product.OrderProductRespone;
 import com.example.sales.data.datasource.data_remote.dataResponse.product.ProductResponse;
 import com.example.sales.databinding.ActivityCartBinding;
 import com.example.sales.presentations.adapter.CartAdapter;
+import com.example.sales.presentations.views.authentications.sign_in.SignInActivity;
+import com.example.sales.presentations.views.home.MainActivity;
 import com.example.sales.ultils.AppBinding;
 import com.example.sales.ultils.AppConstant;
 import com.example.sales.ultils.SharePref;
@@ -50,15 +55,15 @@ public class CartActivity extends AppCompatActivity {
         mCartAdapter.setOnListenerCartItem(new CartAdapter.setOnclickCartItem() {
             @Override
             public void onPlus(int postion) {
-                int countQuanlity=listProductResponses.get(postion).getQuantity()+1;
-                mCartViewModel.updateCart(listProductResponses.get(postion).getId(),mOrder.getId(), countQuanlity);
+                int countQuanlity=mOrder.getProducts().get(postion).getQuantity()+1;
+                mCartViewModel.updateCart(mOrder.getProducts().get(postion).getId(),mOrder.getId(), countQuanlity);
             }
 
             @Override
             public void onMinus(int postion) {
                 if (listProductResponses.get(postion).getQuantity() > 1) {
-                    int countQuanlity=listProductResponses.get(postion).getQuantity()-1;
-                    mCartViewModel.updateCart(listProductResponses.get(postion).getId(),mOrder.getId(), countQuanlity);
+                    int countQuanlity=mOrder.getProducts().get(postion).getQuantity()-1;
+                    mCartViewModel.updateCart(mOrder.getProducts().get(postion).getId(),mOrder.getId(), countQuanlity);
                 }
             }
 
@@ -67,6 +72,18 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
+
+        mBinding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickConfirm();
+            }
+        });
+    }
+
+    private void onClickConfirm() {
+        mOrder.setStatus(true);
+        mCartViewModel.fetchConfirm(mOrder.getId(),mOrder.isStatus());
     }
 
     private void observerData() {
@@ -92,8 +109,7 @@ public class CartActivity extends AppCompatActivity {
                 case SUCCESS:
                     Log.d(AppConstant.TAG, "onChanged: "+ orderProductResponeAppResource.data.getPrice());
                     mOrder=orderProductResponeAppResource.data;
-                    listProductResponses=orderProductResponeAppResource.data.getProducts();
-                    mCartAdapter.updateCart(listProductResponses);
+                    mCartAdapter.updateCart(mOrder.getProducts());
                     mBinding.textviewTotalAmount.setText("Tổng tiền: " + AppBinding.setPrice(mOrder.getPrice()) + " VNĐ");
                     isShowLoading(false);
                     break;
@@ -102,9 +118,36 @@ public class CartActivity extends AppCompatActivity {
                     break;
             }
         });
+
+        mCartViewModel.getConfirm().observe(this, new Observer<AppResource<String>>() {
+            @Override
+            public void onChanged(AppResource<String> stringAppResource) {
+                switch (stringAppResource.status) {
+                    case LOADING:
+                        isShowLoading(true);
+                        break;
+                    case SUCCESS:
+                        Toast.makeText(CartActivity.this, "Da thanh toan thanh cong", Toast.LENGTH_SHORT).show();
+                        mOrder=null;
+                        Intent intent= new Intent(CartActivity.this, SignInActivity.class);
+                        SharePref.getInstance(getApplicationContext()).removeToken(token);
+                        startActivity(intent);
+//                        intent.putExtra(AppConstant.KEY_CARTPRODUCT,mOrder);
+//                        setResult(RESULT_OK, intent);
+                        finish();
+                        isShowLoading(false);
+                        break;
+                    case ERROR:
+                        Log.d(AppConstant.TAG, "onChanged: " + stringAppResource.data);
+                        isShowLoading(false);
+                        break;
+                }
+            }
+        });
     }
 
     private void initData() {
+
         //init list cart
         listProductResponses = new ArrayList<>();
         //get data from mainactivity
@@ -124,6 +167,8 @@ public class CartActivity extends AppCompatActivity {
                 return (T) new CartViewModel(getApplicationContext());
             }
         }).get(CartViewModel.class);
+
+        Log.d(AppConstant.TAG, "initData: " + mOrder.getId() +" "+token);
     }
 
     private void initView() {

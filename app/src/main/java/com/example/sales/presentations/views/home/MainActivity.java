@@ -1,5 +1,9 @@
 package com.example.sales.presentations.views.home;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     Bundle b = new Bundle();
                     b.putSerializable(AppConstant.KEY_CARTPRODUCT, order);
                     intent.putExtras(b);
-                    startActivity(intent);
+                    activityResultLauncher.launch(intent);
                 }
             }
         });
@@ -186,27 +190,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainViewModel.getCart().observe(this, new Observer<AppResource<OrderProductRespone>>() {
-            @Override
-            public void onChanged(AppResource<OrderProductRespone> orderProductResponeAppResource) {
-                switch (orderProductResponeAppResource.status) {
-                    case LOADING:
-                        //Log.d(AppConstant.TAG, "onChanged: LOADING");
-                        isShowLoading(true);
-                        break;
-                    case SUCCESS:
-                        order = orderProductResponeAppResource.data;
-                        quantities = getQualities(order == null ? null : order.getProducts());
-                        setTotalCount(quantities);
-                        isShowLoading(false);
-                        break;
-                    case ERROR:
-                        isShowLoading(false);
-                        break;
-                }
-            }
-        });
-
     }
 
     private void isShowLoading(boolean b) {
@@ -228,4 +211,28 @@ public class MainActivity extends AppCompatActivity {
         return totalQuantities;
     }
 
+
+    ActivityResultLauncher<Intent> activityResultLauncher=registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode()==RESULT_OK)
+            {
+                Intent intent=result.getData();
+                OrderProductRespone orderProductRespone= (OrderProductRespone) intent.getSerializableExtra(AppConstant.KEY_CARTPRODUCT);
+                order=orderProductRespone;
+                int total=0;
+                if(orderProductRespone!=null)
+                {
+                    total=getQualities(orderProductRespone.getProducts());
+                    setTotalCount(total);
+                }
+                else
+                {
+                    setTotalCount(0);
+                }
+            }
+        }
+    });
 }

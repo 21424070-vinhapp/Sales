@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.sales.data.datasource.data_remote.AppResource;
+import com.example.sales.data.datasource.data_remote.dataRequest.ConfirmRequest;
 import com.example.sales.data.datasource.data_remote.dataRequest.IdOrderRequest;
 import com.example.sales.data.datasource.data_remote.dataRequest.OrderRequest;
 import com.example.sales.data.datasource.data_remote.dataRequest.UpdateCartRequest;
@@ -26,6 +27,7 @@ import retrofit2.Response;
 public class CartViewModel extends ViewModel {
     private MutableLiveData<AppResource<OrderProductRespone>> dataUpdate = new MutableLiveData<>();
     private MutableLiveData<AppResource<OrderProductRespone>> cart = new MutableLiveData<>();
+    private MutableLiveData<AppResource<String>> confirm=new MutableLiveData<>();
     private CartRespository cartRespository;
 
     public CartViewModel(Context context) {
@@ -39,6 +41,8 @@ public class CartViewModel extends ViewModel {
     public LiveData<AppResource<OrderProductRespone>> getDataUpdate() {
         return dataUpdate;
     }
+
+    public LiveData<AppResource<String>> getConfirm(){return confirm;}
 
     public void fetchCart(String idOrder) {
         cart.setValue(new AppResource.Loading<>(null));
@@ -96,6 +100,35 @@ public class CartViewModel extends ViewModel {
                 dataUpdate.setValue(new AppResource.Error<>(t.getMessage()));
             }
         });
+    }
+
+    public void fetchConfirm(String id_order, boolean isConfirm)
+    {
+        cartRespository.confirm(new ConfirmRequest(id_order,isConfirm))
+                .enqueue(new Callback<AppResource<String>>() {
+                    @Override
+                    public void onResponse(Call<AppResource<String>> call, Response<AppResource<String>> response) {
+                        if (response.isSuccessful()) {
+                            AppResource<String> data = response.body();
+                            if (data != null) {
+                                confirm.setValue(new AppResource.Success<>(data.data));
+                            }
+                        } else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                String message = jsonObject.getString("message");
+                                confirm.setValue(new AppResource.Error<>(message));
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AppResource<String>> call, Throwable t) {
+                        confirm.setValue(new AppResource.Error<>(t.getMessage()));
+                    }
+                });
     }
 
 }

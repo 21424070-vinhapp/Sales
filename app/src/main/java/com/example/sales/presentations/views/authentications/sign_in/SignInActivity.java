@@ -90,7 +90,7 @@ public class SignInActivity extends AppCompatActivity {
         } else if (pass.isEmpty()) {
             Toast.makeText(SignInActivity.this, "Không được để trống password", Toast.LENGTH_SHORT).show();
         } else {
-            signInViewModel.performLogIn("demo100@gmail.com", "123456789");
+            signInViewModel.performLogIn("demo2010@gmail.com", "123456789");
         }
     }
 
